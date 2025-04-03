@@ -10,7 +10,7 @@ export const createOrder = async (req, res) =>
 {
    const {paymentMethod} = req.body;
    console.log(paymentMethod);
-  // try {
+  try {
     const cart = await Cart.findOne({user:req.user._id}).populate('items.product');
     if(!cart || cart.items.length === 0 )
     {
@@ -18,8 +18,6 @@ export const createOrder = async (req, res) =>
     } 
      const totalPrice = cart.items.reduce((acc, item)=> acc + item.product.price * item.quantity, 0 )
     
-     
-     
      //process payment 
      if(paymentMethod === 'stripe')
       {    
@@ -40,9 +38,9 @@ export const createOrder = async (req, res) =>
       }
       
      
-  // } catch (error) {
-  //      res.status(500).json({message: error.message});
-  // }
+  } catch (error) {
+       res.status(500).json({message: error.message});
+  }
 }
 
 export const confirmOrder = async (req,res)=>
