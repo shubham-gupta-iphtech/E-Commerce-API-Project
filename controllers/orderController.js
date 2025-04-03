@@ -51,17 +51,16 @@ export const confirmOrder = async (req,res)=>
     try {
         const { paymentIntentId } = req.body;
         const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
-        
+        const cart = await Cart.findOne({user:req.user._id}).populate('items.product');
 
         const order = await Order.create({
-  
           user: req.user._id,
           items: cart.items,
           total, 
           paymentStatus: 'paid',
-          paymentMethod 
+          paymentMethod: 'stripe'
         });
-       
+        await order.save();
         cart.items = [];
         await cart.save();
     
