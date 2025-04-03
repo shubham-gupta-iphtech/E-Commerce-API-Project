@@ -50,9 +50,10 @@ export const confirmOrder = async (req,res)=>
  
     try {
         const { paymentIntentId } = req.body;
+        console.log(paymentIntentId);
         const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
         const cart = await Cart.findOne({user:req.user._id}).populate('items.product');
-
+        const total = cart.items.reduce((acc, item)=> acc + item.product.price * item.quantity, 0 )
         const order = await Order.create({
           user: req.user._id,
           items: cart.items,
