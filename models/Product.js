@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
     {
-        name: { type: String, required: true , index: true},
-        description: {type: String},
-        category: { type: String, enum:['electronics','home_essen'],required: true, index: true },
-        price : { type: Number, required: true },
-        quantity: {type: Number, default: 0},
+        name: { type: String, required: true, index: true },
+        description: { type: String },
+        category: { type: String, enum: ['electronics', 'home_essen', 'automobile'], required: true, index: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, default: 0 },
         images: [String],
     },
     {
@@ -14,6 +14,6 @@ const productSchema = new mongoose.Schema(
     }
 );
 
-const Product =  mongoose.model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export default Product;
