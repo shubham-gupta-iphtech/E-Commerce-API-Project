@@ -7,6 +7,7 @@ const router = express.Router();
 router.route('/')
 .post(protect, createOrder)
 .get(protect, getUserOrders);
+// .delete(protect, deleteUserOrders)
 
 router.route('/confirmOrder').post(protect, confirmOrder)
 
