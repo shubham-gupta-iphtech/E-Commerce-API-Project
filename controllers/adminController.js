@@ -45,3 +45,27 @@ export const getProductAnalytics = async (req,res) =>
     }
 
 }
+
+export const confirmandshiporder = async (req,res) => {
+   const orderid = req.params.id;
+   const order = await Order.findOne({"_id": orderid }).populate('user','name email');
+   if(order.orderStatus=='pending')
+   {
+       order.orderStatus='shipped';
+       await order.save();
+       res.json({message: "order has been shippped"});
+   }
+
+}
+
+export const setOrderDelivered = async (req,res) => {
+  const orderid = req.params.id;
+  const order = await Order.findOne({"_id": orderid}).populate('user','name email');
+  if(order.orderStatus == 'shipped')
+  {
+    order.orderStatus='delivered';
+    await order.save();
+    res.json({message: "your order has been delivered."});
+
+  }
+} 

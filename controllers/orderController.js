@@ -89,14 +89,15 @@ export const getUserOrders = async (req, res) => {
   }
 };
 
-export const cancelUserOrder = async (req,res) => {
-  const orderId = req.body;
+export const deleteOrder = async (req,res) => {
+  const orderId = req.params.id;
   if(!orderId)
   {
       res.json({message: "Please enter user id"});
   }
 
-  const order = await Order.findOne({orderId});
+  const order = await Order.findOne({_id:orderId});
+  console.log(order);
   if(order.orderStatus == 'pending')
   {
     const deletion = await Order.findOneAndDelete({userId});
@@ -107,7 +108,7 @@ export const cancelUserOrder = async (req,res) => {
   }
   else
   {
-    res.json({message: "Sorry, the order could not be cancelled after it has been shipped"});
+    res.json({message: "Sorry, the order could not be cancelled after it has been shipped and delivered."});
   }
  
 }
