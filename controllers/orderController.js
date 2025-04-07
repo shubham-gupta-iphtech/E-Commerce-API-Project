@@ -95,12 +95,12 @@ export const deleteOrder = async (req,res) => {
   {
       res.json({message: "Please enter user id"});
   }
-
+  
   const order = await Order.findOne({_id:orderId});
   console.log(order);
   if(order.orderStatus == 'pending')
   {
-    const deletion = await Order.findOneAndDelete({userId});
+    const deletion = await Order.findOneAndDelete({_id: orderId});
     if(deletion)
     {
       res.json({message: "the order is successfully deleted"});
