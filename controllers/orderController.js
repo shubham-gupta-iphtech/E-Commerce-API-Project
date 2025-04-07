@@ -90,13 +90,17 @@ export const getUserOrders = async (req, res) => {
 };
 
 export const deleteOrder = async (req,res) => {
-  const orderId = req.params.id;
-  if(!orderId)
+  const userId = req.params.userId;
+  const orderId = req.params.orderId;
+  if(!(orderId || userId))
   {
-      res.json({message: "Please enter user id"});
+      res.json({message: "Either user id or order id is missing."});
   }
   
-  const order = await Order.findOne({_id:orderId});
+
+  const order = await Order.findOne({_id:orderId,
+    $expr: { $eq: ["$orderId", "$userId"] }
+  });
   console.log(order);
   if(order.orderStatus == 'pending')
   {
@@ -107,8 +111,17 @@ export const deleteOrder = async (req,res) => {
     }
   }
   else
-  {
-    res.json({message: "Sorry, the order could not be cancelled after it has been shipped and delivered."});
+  { 
+
+    if(!order)
+    {
+      res.json({message: "sorry , the requested order could not be found."})
+    }
+    else
+    {
+      res.json({message: "Sorry, the order could not be cancelled after it has been shipped and delivered."});
+    }
+   
   }
  
 }

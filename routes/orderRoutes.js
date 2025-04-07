@@ -11,7 +11,7 @@ router.route('/')
 // .delete(protect, deleteUserOrders)
 
 router.route('/confirmOrder').post(protect, confirmOrder);
-router.route('/canceluserorder/:id').delete(protect,deleteOrder);
+router.route('/canceluserorder/user:userId/order:orderId').delete(protect,deleteOrder);
 export default router; 
 
 
