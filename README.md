@@ -8,13 +8,14 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ### 🔑 **Authentication**
 - `POST /api/auth/register`: Create a new user account  
+
   ```json
   {
     "name": "John Doe",
     "email": "john@example.com",
     "password": "securepassword"
   }
-````
+  ```
 
 * `POST /api/auth/login`: Log in a user
 
