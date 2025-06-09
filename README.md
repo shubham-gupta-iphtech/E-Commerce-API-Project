@@ -181,12 +181,6 @@ Contributions are welcome! Steps:
 
 ---
 
-## 📄 License
-
-Licensed under the **MIT License**. Feel free to modify, extend, and distribute responsibly.
-
----
-
 > Built with ❤️ by [Shubham Gupta](https://github.com/shubham-gupta-iphtech)
 
 
