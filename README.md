@@ -1,4 +1,3 @@
-````markdown
 # 🛒 E-Commerce API
 
 A RESTful API for a full-featured e-commerce platform, built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**. It handles user management, product catalog, shopping cart, and orders.
