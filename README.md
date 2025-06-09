@@ -1,14 +1,11 @@
 # 🛒 E-Commerce API
 
 A RESTful API for a full-featured e-commerce platform, built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**. It handles user management, product catalog, shopping cart, and orders.
-
-````markdown
-
 ---
 
 ## 🚀 Features & Endpoints
 
-### 🔑 **Authentication**
+## 🔑 **Authentication**
 - `POST /api/auth/register`: Create a new user account  
   ```json
   {
@@ -16,7 +13,6 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
     "email": "john@example.com",
     "password": "securepassword"
   }
-````
 
 * `POST /api/auth/login`: Log in a user
 
