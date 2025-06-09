@@ -1,186 +1,210 @@
 # 🛒 E-Commerce API
 
-A RESTful API for a full-featured e-commerce platform, built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**. It handles user management, product catalog, shopping cart, and orders.
+A full-featured RESTful API for an e-commerce platform, built with **Node.js**, **Express**, and **MongoDB**. It supports user and admin roles, product and cart management, orders, payments, and analytics.
 
 ---
 
-## 🚀 Features & Endpoints
+## 🚀 Features
 
-### 🔑 **Authentication**
-- `POST /api/auth/register`: Create a new user account  
-
-  ```json
-  {
-    "name": "John Doe",
-    "email": "john@example.com",
-    "password": "securepassword"
-  }
-  ```
-
-* `POST /api/auth/login`: Log in a user
-
-  ```json
-  { 
-    "email": "john@example.com", 
-    "password": "securepassword" 
-  }
-  ```
-* *On success:* Receives a JWT token for authenticated operations.
+- ✅ User registration & authentication (JWT)
+- 🛍️ Product management with image upload (admin-only)
+- 🛒 Cart creation, update, and deletion
+- 📦 Order processing & tracking
+- 💳 Stripe payment integration
+- 📈 Admin analytics for products & orders
+- 🧪 Fully testable with Postman
 
 ---
 
-### 👤 **User Profile**
+## 📁 Project Structure (Example)
+```
+ecommerce-api/
+├── controllers/
+├── middleware/
+├── models/
+├── routes/
+├── uploads/
+├── utils/
+├── .env
+├── server.js
+├── package.json
+```
 
-* `GET /api/users/:id`: Retrieve a user profile
-* `PUT /api/users/:id`: Update user information
-* `DELETE /api/users/:id`: Remove a user account
+## ⚙️ Setup Instructions
 
-*All routes require JWT auth; users can only manage their own profile (unless admin).*
+1. **Clone the repository**
 
----
+```bash
+git clone https://github.com/shubham-gupta-iphtech/E-Commerce-API-Project.git
+cd E-Commerce-API-Project
+````
 
-### 📦 **Product Catalog**
+2. **Install dependencies**
 
-* `POST /api/products`: Add a new product (admin only)
+```bash
+npm install
+```
 
-  ```json
-  {
-    "title": "Sneakers",
-    "description": "Comfortable running shoes",
-    "price": 59.99,
-    "inStock": true,
-    "categories": ["shoes", "sports"]
-  }
-  ```
-* `GET /api/products/:id`: Fetch a product by ID
-* `PUT /api/products/:id`: Edit product details (admin only)
-* `DELETE /api/products/:id`: Remove a product (admin only)
-* `GET /api/products`: List products with optional filters:
+3. **Create `.env` file**
 
-  * `?category=shoes`
-  * `?sort=asc|desc` (by date or price)
-  * `?new=true` (most recent)
+```env
+PORT=5000
+MONGO_URI=<your_mongodb_uri>
+JWT_SECRET=<your_jwt_secret>
+STRIPE_SECRET_KEY=<your_stripe_key>
+```
 
----
+4. **Run the project**
 
-### 🛒 **Cart**
+```bash
+npm start
+```
 
-* `POST /api/carts/`: Create/update user cart
-
-  ```json
-  {
-    "userId": "user123",
-    "products": [
-      { "productId": "prod1", "quantity": 2 },
-      { "productId": "prod2", "quantity": 1 }
-    ]
-  }
-  ```
-* `PUT /api/carts/:id`: Modify cart items
-* `DELETE /api/carts/:id`: Clear the entire cart
-* `GET /api/carts/:userId`: Fetch user’s cart
-
-*(Cart routes require the user’s JWT and apply only to their own cart.)*
+> Server will run on `http://localhost:5000`
 
 ---
 
-### 📑 **Orders**
+## 🔐 Authentication
 
-* `POST /api/orders`: Create a new order from cart
+### `POST /api/auth/register`
 
-  ```json
-  {
-    "userId": "user123",
-    "products": [ { "productId": "prod1", "quantity": 2 } ],
-    "amount": 119.98,
-    "address": "123 Main St, City",
-    "status": "pending"
-  }
-  ```
-* `PUT /api/orders/:id`: Update order (admin only)
-* `GET /api/orders/:userId`: User can view their orders
-* `GET /api/orders`: Admin-only: view all orders
-* `GET /api/orders/income`: Admin-only: view monthly income stats
+Register a new user (admin or customer).
 
----
+```json
+{
+  "name": "admin",
+  "email": "admin@gmail.com",
+  "password": "admin123",
+  "role": "admin"
+}
+```
 
-## 🗄️ Tech Stack
+### `POST /api/auth/login`
 
-* **Server**: Node.js + Express
-* **Database**: MongoDB + Mongoose
-* **Auth**: JWT token-based authentication
-* **Security**: Route protection for users/admins
+Login to get JWT token.
 
 ---
 
-## 💾 Installation
+## 👤 Users
 
-1. Clone the repo:
+* `GET /api/users/:id` — Get user profile
+* `PUT /api/users/:id` — Update user
+* `DELETE /api/users/:id` — Delete user
 
-   ```bash
-   git clone https://github.com/shubham-gupta-iphtech/E-Commerce-API-Project.git
-   cd E-Commerce-API-Project
-   ```
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file:
-
-   ```env
-   PORT=5000
-   MONGO_URI=<your-mongo-db-connection-string>
-   JWT_SECRET=<your_jwt_secret>
-   ```
-4. Run the server:
-
-   ```bash
-   npm start
-   ```
-
-   Server runs at `http://localhost:5000`.
+> 🔒 Protected by JWT
 
 ---
 
-## 🧪 Testing the API
+## 📦 Products
 
-* Tools: [Postman](https://www.postman.com), [Insomnia](https://insomnia.rest/), or `curl`
-* Example flow:
+### `POST /api/products`
 
-  1. Register ➡️ receive user
-  2. Login ➡️ receive JWT token
-  3. Create/update Cart
-  4. Create Order
-  5. Admin actions: manage products/orders
+Create a product *(admin only, with image upload)*
 
----
+### `GET /api/products`
 
-## 🛡️ Authorization Rules
+Get all products
+Supports:
 
-| Route                  | Access                               |
-| ---------------------- | ------------------------------------ |
-| `/api/auth/*`          | Public                               |
-| `/api/users/:id`       | User owns account or admin           |
-| `/api/products`        | Admin only (`POST`, `PUT`, `DELETE`) |
-| `/api/products` filter | Public (`GET`)                       |
-| `/api/carts`           | Authenticated user only              |
-| `/api/orders`          | Authenticated users; admin sees all  |
-| `/api/orders/income`   | Admin only                           |
+* `?search=phone` (filter by search keyword)
+
+### `GET /api/products/:id`
+
+Get product by ID
 
 ---
 
-## 🧑‍🤝‍🧑 Contributions
+## 🛒 Cart
 
-Contributions are welcome! Steps:
+### `POST /api/cart`
 
-1. Fork the repo
-2. Create a feature branch (`git checkout -b add-feature`)
-3. Make changes & test
-4. Submit a Pull Request
+Add product to cart
+
+```json
+{
+  "productId": "<product_id>",
+  "quantity": 2
+}
+```
+
+### `GET /api/cart`
+
+Get current user's cart
+
+### `DELETE /api/cart/:productId`
+
+Remove product from cart
 
 ---
 
-> Built with ❤️ by [Shubham Gupta](https://github.com/shubham-gupta-iphtech)
+## 📑 Orders
+
+### `POST /api/orders`
+
+Create order and payment intent (Stripe)
+
+```json
+{
+  "paymentMethod": "stripe"
+}
+```
+
+### `POST /api/orders/confirmOrder`
+
+Confirm order with Stripe payment intent ID
+
+```json
+{
+  "paymentIntentId": "pi_..."
+}
+```
+
+### `GET /api/orders`
+
+Get logged-in user's orders
+
+### `POST /api/orders/cancelUserOrder`
+
+Cancel order
+
+### `DELETE /api/orders/cancelUserOrder/:id`
+
+Cancel specific order by ID
+
+---
+
+## 🔧 Admin Endpoints
+
+### `GET /api/admin/orders`
+
+Get all orders
+
+### `GET /api/admin/orders/analytics`
+
+Order stats (sales, revenue)
+
+### `GET /api/admin/products/analytics`
+
+Product stats
+
+### `POST /api/admin/orders/confirmandshiporder/:id`
+
+Confirm & mark order as shipped
+
+### `POST /api/admin/orders/setorderdelivered/:id`
+
+Mark as delivered
+
+---
+
+## 🧪 Postman Collection
+
+Use the included [Postman Collection](https://node-js-3727.postman.co/workspace/Node-js-Workspace~d1729c94-a0af-41f5-8307-a829a835ebfe/collection/43309484-a5061480-6eac-4d7a-9a20-0896e8cc5d99?action=share) for testing all routes.
+
+---
+
+> Made with ❤️ by [Shubham Gupta](https://github.com/shubham-gupta-iphtech)
+
+
 
 
