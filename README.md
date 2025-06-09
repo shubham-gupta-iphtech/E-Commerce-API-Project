@@ -1,7 +1,3 @@
-Absolutely! Here’s a polished `README.md` for your **E-Commerce API** based on the routes in your GitHub repo:
-
----
-
 ````markdown
 # 🛒 E-Commerce API
 
