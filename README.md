@@ -2,6 +2,8 @@
 
 A RESTful API for a full-featured e-commerce platform, built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**. It handles user management, product catalog, shopping cart, and orders.
 
+````markdown
+
 ---
 
 ## 🚀 Features & Endpoints
@@ -19,13 +21,16 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 * `POST /api/auth/login`: Log in a user
 
   ```json
-  { "email": "john@example.com", "password": "securepassword" }
+  { 
+    "email": "john@example.com", 
+    "password": "securepassword" 
+  }
   ```
 * *On success:* Receives a JWT token for authenticated operations.
 
 ---
 
-### 👤 **User Profile**
+## 👤 **User Profile**
 
 * `GET /api/users/:id`: Retrieve a user profile
 * `PUT /api/users/:id`: Update user information
@@ -35,7 +40,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-### 📦 **Product Catalog**
+## 📦 **Product Catalog**
 
 * `POST /api/products`: Add a new product (admin only)
 
@@ -59,7 +64,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-### 🛒 **Cart**
+## 🛒 **Cart**
 
 * `POST /api/carts/`: Create/update user cart
 
@@ -80,14 +85,14 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-### 📑 **Orders**
+## 📑 **Orders**
 
 * `POST /api/orders`: Create a new order from cart
 
   ```json
   {
     "userId": "user123",
-    "products": [ { "productId": "prod1", "quantity": 2 }, ... ],
+    "products": [ { "productId": "prod1", "quantity": 2 } ],
     "amount": 119.98,
     "address": "123 Main St, City",
     "status": "pending"
@@ -100,7 +105,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-## 🗄️ Tech Stack
+# 🗄️ Tech Stack
 
 * **Server**: Node.js + Express
 * **Database**: MongoDB + Mongoose
@@ -109,7 +114,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-## 💾 Installation
+# 💾 Installation
 
 1. Clone the repo:
 
@@ -139,7 +144,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-## 🧪 Testing the API
+# 🧪 Testing the API
 
 * Tools: [Postman](https://www.postman.com), [Insomnia](https://insomnia.rest/), or `curl`
 * Example flow:
@@ -152,7 +157,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-## 🛡️ Authorization Rules
+# 🛡️ Authorization Rules
 
 | Route                  | Access                               |
 | ---------------------- | ------------------------------------ |
@@ -166,7 +171,7 @@ A RESTful API for a full-featured e-commerce platform, built with **Node.js**, *
 
 ---
 
-## 🧑‍🤝‍🧑 Contributions
+# 🧑‍🤝‍🧑 Contributions
 
 Contributions are welcome! Steps:
 
@@ -176,8 +181,11 @@ Contributions are welcome! Steps:
 4. Submit a Pull Request
 
 ---
+ 
 
 > Built with ❤️ by [Shubham Gupta](https://github.com/shubham-gupta-iphtech)
 
-```
+
+
+
 
